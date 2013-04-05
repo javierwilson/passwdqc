@@ -41,7 +41,9 @@ MKDIR = umask 022 && mkdir -p
 INSTALL = install -c
 # We support Sun's older /usr/ucb/install, but not the newer /usr/sbin/install.
 INSTALL_SUN = /usr/ucb/install -c
-CFLAGS = -Wall -W -O2
+#CFLAGS = -Wall -W -O2
+# FIXME: use gdb ?
+CFLAGS = -Wall -W -O2 -ggdb
 CFLAGS_lib = $(CFLAGS) -fPIC
 CFLAGS_bin = $(CFLAGS) -fomit-frame-pointer
 
@@ -81,7 +83,7 @@ LDLIBS_pam_HP = -lpam -lsec
 CONFIGS = passwdqc.conf
 BINS = pwqgen pwqcheck
 PROJ = $(SHARED_LIB) $(DEVEL_LIB) $(SHARED_PAM) $(BINS)
-OBJS_LIB = concat.o passwdqc_check.o passwdqc_load.o passwdqc_parse.o passwdqc_random.o wordset_4k.o
+OBJS_LIB = concat.o passwdqc_check.o passwdqc_load.o passwdqc_parse.o passwdqc_random.o wordset_4k.o wordset_4k.es.o
 OBJS_PAM = pam_passwdqc.o
 OBJS_GEN = pwqgen.o
 OBJS_CHECK = pwqcheck.o
@@ -145,11 +147,12 @@ pwqcheck.o: pwqcheck.c passwdqc.h
 
 concat.o: concat.h
 pam_passwdqc.o: passwdqc.h pam_macros.h
-passwdqc_check.o: passwdqc.h wordset_4k.h
+passwdqc_check.o: passwdqc.h wordset_4k.h wordset_4k.es.h
 passwdqc_load.o: passwdqc.h concat.h
 passwdqc_parse.o: passwdqc.h concat.h
-passwdqc_random.o: passwdqc.h wordset_4k.h
+passwdqc_random.o: passwdqc.h wordset_4k.h wordset_4k.es.h
 wordset_4k.o: wordset_4k.h
+wordset_4k.es.o: wordset_4k.es.h
 
 install_wrapped: install_lib_wrapped install_utils_wrapped install_pam_wrapped
 	@echo 'Consider running ldconfig(8) to update the dynamic linker cache.'

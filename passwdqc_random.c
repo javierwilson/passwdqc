@@ -10,6 +10,7 @@
 
 #include "passwdqc.h"
 #include "wordset_4k.h"
+#include "wordset_4k.es.h"
 
 /*
  * We separate words in the generated "passphrases" with random special
@@ -80,7 +81,11 @@ char *passwdqc_random(const passwdqc_params_qc_t *params)
 		}
 
 		i = (((int)bytes[1] & 0x0f) << 8) | (int)bytes[0];
-		start = _passwdqc_wordset_4k[i];
+		if (params->lang == 0) {
+			start = _passwdqc_wordset_4k[i];
+		} else {
+			start = _passwdqc_wordset_4k_es[i];
+		}
 		end = memchr(start, '\0', 6);
 		if (!end)
 			end = start + 6;

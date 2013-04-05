@@ -14,6 +14,7 @@ typedef struct {
 	int passphrase_words;
 	int match_length;
 	int similar_deny;
+	int lang;
 	int random_bits;
 } passwdqc_params_qc_t;
 

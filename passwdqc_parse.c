@@ -65,6 +65,13 @@ parse_option(passwdqc_params_t *params, char **reason, const char *option)
 		if (*e || v > INT_MAX)
 			goto parse_error;
 		params->qc.match_length = v;
+	} else if ((p = skip_prefix(option, "lang="))) {
+		if (!strcmp(p, "en"))
+			params->qc.lang = 0;
+		else if (!strcmp(p, "es"))
+			params->qc.lang = 1;
+		else
+			goto parse_error;
 	} else if ((p = skip_prefix(option, "similar="))) {
 		if (!strcmp(p, "permit"))
 			params->qc.similar_deny = 0;
@@ -159,6 +166,7 @@ static passwdqc_params_t defaults = {
 		3,				/* passphrase_words */
 		4,				/* match_length */
 		1,				/* similar_deny */
+		0,				/* language */
 		47				/* random_bits */
 	},
 	{

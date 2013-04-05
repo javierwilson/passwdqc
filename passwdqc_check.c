@@ -10,6 +10,7 @@
 
 #include "passwdqc.h"
 #include "wordset_4k.h"
+#include "wordset_4k.es.h"
 
 #define REASON_ERROR \
 	"check failed"
@@ -400,12 +401,19 @@ static const char *is_word_based(const passwdqc_params_qc_t *params,
 	mode = is_reversed | 1;
 	word[6] = '\0';
 	for (i = 0; i < 0x1000; i++) {
-		memcpy(word, _passwdqc_wordset_4k[i], 6);
+		if (params->lang == 0) {
+			memcpy(word, _passwdqc_wordset_4k[i], 6);
+		} else {
+			memcpy(word, _passwdqc_wordset_4k_es[i], 6);
+		}
 		length = strlen(word);
 		if (length < params->match_length)
 			continue;
-		if (i < 0xfff &&
+		if (params->lang == 0 && i < 0xfff &&
 		    !memcmp(word, _passwdqc_wordset_4k[i + 1], length))
+			continue;
+		if (params->lang == 1 && i < 0xfff &&
+		    !memcmp(word, _passwdqc_wordset_4k_es[i + 1], length))
 			continue;
 		unify(word, word);
 		if (is_based(params, word, needle, original, mode))

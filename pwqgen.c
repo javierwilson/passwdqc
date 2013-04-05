@@ -59,4 +59,5 @@ int main(int argc, const char **argv)
 	}
 
 	return (puts(pass) >= 0 && fflush(stdout) >= 0) ? 0 : 1;
+
 }
