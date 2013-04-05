@@ -47,6 +47,11 @@ int main(int argc, const char **argv)
 		    (reason ? reason : "Out of memory"));
 		free(reason);
 		return 1;
+	} else if (passwdqc_params_load(&params, &reason, "/etc/passwdqc.conf")) {
+		fprintf(stderr, "pwqgen: %s\n",
+		    (reason ? reason : "Bad config file"));
+		free(reason);
+		return 1;
 	}
 
 	pass = passwdqc_random(&params.qc);
