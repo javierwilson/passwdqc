@@ -1,5 +1,5 @@
 /*
- * Written by Solar Designer <solar at openwall.com> and placed in the
+ * Written by Javier Wilson and placed in the
  * public domain.
  */
 

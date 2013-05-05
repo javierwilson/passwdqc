@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2000-2002 by Solar Designer
  * Copyright (c) 2008,2009 by Dmitry V. Levin
+ * Copyright (c) 2013 by Javier Wilson
  * See LICENSE
  */
 
